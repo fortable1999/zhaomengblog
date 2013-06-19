@@ -75,7 +75,7 @@ class ImageBlogListView(ListView):
 	model = ImageBlog
 
 class ImageBlogDetailView(DetailView):
-	template_name = 'blog/blog_detail.html'
+	template_name = 'blog/imageblog_detail.html'
 
 	def get_object(self):
 		return ImageBlog.objects.get(pk = self.kwargs['pk'])
