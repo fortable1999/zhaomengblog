@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h1 id="heading">All Blogs</h1>
+{% for object in object_list %}
+<h3>{{ object.title }} - {{ object.postdate }}</h3>
+{% endfor %}
+
+{% endblock %}
