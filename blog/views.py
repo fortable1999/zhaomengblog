@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy as reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.utils.decorators import method_decorator
 from models import Blog, ImageBlog
 from forms import BlogForm, ImageBlogForm
 
@@ -30,48 +32,52 @@ from forms import BlogForm, ImageBlogForm
 # 		object_set = {'delete': '',
 # 				'update':"",
 # 				'detail':"",}
+class LoginRequiredMixin(object):
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+		return super(LoginRequiredMixin, self).dispatch(*args,**kwargs)
 
-class BlogListView(ListView):
-	template_name = 'blog/blog_list.html'
-	model = Blog
-
-class BlogDetailView(DetailView):
-	template_name = 'blog/blog_detail.html'
-
-	def get_object(self):
-		return Blog.objects.get(pk = self.kwargs['pk'])
-
-class BlogCreateView(CreateView):
-	template_name = 'blog/blog_create.html'
-	form_class = BlogForm
-
-	def get_success_url(self):
-		print self.object.pk
-		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
-		
-
-class BlogUpdateView(UpdateView):
-	template_name = 'blog/blog_update.html'
-	form_class = BlogForm
-
-	def get_object(self):
-		return Blog.objects.get(pk = self.kwargs['pk'])
-
-	def get_success_url(self):
-		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
-
-class BlogDeleteView(DeleteView):
-	template_name = 'blog/blog_delete.html'
-
-	def get_object(self):
-		return Blog.objects.get(pk = self.kwargs['pk'])
-
-	def get_success_url(self):
-		return reverse('blog_list')
+# class BlogListView(ListView):
+# 	template_name = 'blog/blog_list.html'
+# 	model = Blog
+# 
+# class BlogDetailView(DetailView):
+# 	template_name = 'blog/blog_detail.html'
+# 
+# 	def get_object(self):
+# 		return Blog.objects.get(pk = self.kwargs['pk'])
+# 
+# class BlogCreateView(CreateView):
+# 	template_name = 'blog/blog_create.html'
+# 	form_class = BlogForm
+# 
+# 	def get_success_url(self):
+# 		print self.object.pk
+# 		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
+# 		
+# 
+# class BlogUpdateView(UpdateView):
+# 	template_name = 'blog/blog_update.html'
+# 	form_class = BlogForm
+# 
+# 	def get_object(self):
+# 		return Blog.objects.get(pk = self.kwargs['pk'])
+# 
+# 	def get_success_url(self):
+# 		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
+# 
+# class BlogDeleteView(DeleteView):
+# 	template_name = 'blog/blog_delete.html'
+# 
+# 	def get_object(self):
+# 		return Blog.objects.get(pk = self.kwargs['pk'])
+# 
+# 	def get_success_url(self):
+# 		return reverse('blog_list')
 
 #####IMAGE BLOG
 class ImageBlogListView(ListView):
-	template_name = 'blog/blog_list.html'
+	template_name = 'blog/imageblog_list.html'
 	model = ImageBlog
 
 class ImageBlogDetailView(DetailView):
@@ -80,7 +86,7 @@ class ImageBlogDetailView(DetailView):
 	def get_object(self):
 		return ImageBlog.objects.get(pk = self.kwargs['pk'])
 
-class ImageBlogCreateView(CreateView):
+class ImageBlogCreateView(LoginRequiredMixin, CreateView):
 	template_name = 'blog/imageblog_create.html'
 	form_class = ImageBlogForm
 
@@ -88,7 +94,7 @@ class ImageBlogCreateView(CreateView):
 		print self.object.pk
 		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
 
-class ImageBlogUpdateView(UpdateView):
+class ImageBlogUpdateView(LoginRequiredMixin, UpdateView):
 	template_name = 'blog/blog_update.html'
 	form_class = ImageBlogForm
 
@@ -98,7 +104,7 @@ class ImageBlogUpdateView(UpdateView):
 	def get_success_url(self):
 		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
 
-class ImageBlogDeleteView(DeleteView):
+class ImageBlogDeleteView(LoginRequiredMixin, DeleteView):
 	template_name = 'blog/blog_delete.html'
 
 	def get_object(self):
@@ -106,3 +112,4 @@ class ImageBlogDeleteView(DeleteView):
 
 	def get_success_url(self):
 		return reverse('imageblog_list')
+
