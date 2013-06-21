@@ -54,7 +54,7 @@ class ImageBlogCreateView(LoginRequiredMixin, CreateView):
 
 	def get_success_url(self):
 		print self.object.pk
-		return reverse('blog/imageblog_detail', kwargs = {'pk':self.object.pk})
+		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
 
 class ImageBlogUpdateView(LoginRequiredMixin, UpdateView):
 	template_name = 'blog/imageblog_update.html'
@@ -64,7 +64,7 @@ class ImageBlogUpdateView(LoginRequiredMixin, UpdateView):
 		return ImageBlog.objects.get(pk = self.kwargs['pk'])
 
 	def get_success_url(self):
-		return reverse('blog/imageblog_detail', kwargs = {'pk':self.object.pk})
+		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
 
 class ImageBlogDeleteView(LoginRequiredMixin, DeleteView):
 	template_name = 'blog/imageblog_delete.html'
