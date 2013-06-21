@@ -1,0 +1,5 @@
+*.pyc
+dev.db
+*.zip
+*.tar.gz
+image/*
