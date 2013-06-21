@@ -2,11 +2,40 @@
 {% load url from future %}
 
 {% block body %}
-
-<h1 id="heading">All Blogs</h1>
 {% for object in object_list %}
-<a href={% url 'imageblog_detail' object.pk %}><h3>{{ object.title }} - {{ object.postdate }}</h3></a>
-<img src="{{ object.image.url }}" alt="" />
+<div class="blog-object">
+	<a class="center" href={% url 'imageblog_detail' object.pk %}><h3>{{ object.title }}</h3></a>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<blockquote>
+					<p>{{ object.text }}</p>
+					<small>at {{ object.postdate }}</small>
+				</blockquote>
+			</div>
+			<div class="offset1 span9">
+				<ul class="thumbnails">
+					<li class="thumbnail hover-controlled">
+						<a href="{% url 'imageblog_detail' object.pk %}"><img src="{{ object.image.url }}" alt="">
+							<div class="hover-control-button">
+								<div class="btn-group">
+								  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+									Action
+									<span class="caret"></span>
+								  </a>
+								  <ul class="dropdown-menu">
+									  <li><a href="{% url 'imageblog_update' object.pk %}">Modify</a></li>
+									  <li><a href="{% url 'imageblog_delete' object.pk %}">Delete</a></li>
+								  </ul>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 {% endfor %}
 
 {% endblock %}

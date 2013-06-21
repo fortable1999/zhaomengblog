@@ -1,6 +1,9 @@
 # Django settings for zmblog project.
 import os
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -70,8 +73,6 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 	os.path.join(PROJECT_ROOT, 'static/'),
 )
-print PROJECT_ROOT
-print STATICFILES_DIRS
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -91,8 +92,13 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_CONTENT_PROCESSORS = (
-	'django.core.context_processors.request',
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.core.context_processors.request",
+	'django.contrib.auth.context_processors.auth',
+	# "django.core.context_processors.auth",
+	# "django.core.context_processors.debug",
+	# "django.core.context_processors.i18n",
+	# "django.core.context_processors.media",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -158,6 +164,15 @@ LOGGING = {
         },
     }
 }
+
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_ROOT, "fixtures"),
+)
+
+# FIXTUER_DIRS = (
+# 	os.path.join(PROJECT_ROOT, 'fixtures/'),
+# )
+# print FIXTUER_DIRS
 
 REDIRECT_FIELD_NAME = "next"
 LOGIN_REDIRECT_URL = '/'

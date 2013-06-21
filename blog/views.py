@@ -37,44 +37,6 @@ class LoginRequiredMixin(object):
 	def dispatch(self, *args, **kwargs):
 		return super(LoginRequiredMixin, self).dispatch(*args,**kwargs)
 
-# class BlogListView(ListView):
-# 	template_name = 'blog/blog_list.html'
-# 	model = Blog
-# 
-# class BlogDetailView(DetailView):
-# 	template_name = 'blog/blog_detail.html'
-# 
-# 	def get_object(self):
-# 		return Blog.objects.get(pk = self.kwargs['pk'])
-# 
-# class BlogCreateView(CreateView):
-# 	template_name = 'blog/blog_create.html'
-# 	form_class = BlogForm
-# 
-# 	def get_success_url(self):
-# 		print self.object.pk
-# 		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
-# 		
-# 
-# class BlogUpdateView(UpdateView):
-# 	template_name = 'blog/blog_update.html'
-# 	form_class = BlogForm
-# 
-# 	def get_object(self):
-# 		return Blog.objects.get(pk = self.kwargs['pk'])
-# 
-# 	def get_success_url(self):
-# 		return reverse('blog_detail', kwargs = {'pk':self.object.pk})
-# 
-# class BlogDeleteView(DeleteView):
-# 	template_name = 'blog/blog_delete.html'
-# 
-# 	def get_object(self):
-# 		return Blog.objects.get(pk = self.kwargs['pk'])
-# 
-# 	def get_success_url(self):
-# 		return reverse('blog_list')
-
 #####IMAGE BLOG
 class ImageBlogListView(ListView):
 	template_name = 'blog/imageblog_list.html'
@@ -92,20 +54,20 @@ class ImageBlogCreateView(LoginRequiredMixin, CreateView):
 
 	def get_success_url(self):
 		print self.object.pk
-		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
+		return reverse('blog/imageblog_detail', kwargs = {'pk':self.object.pk})
 
 class ImageBlogUpdateView(LoginRequiredMixin, UpdateView):
-	template_name = 'blog/blog_update.html'
+	template_name = 'blog/imageblog_update.html'
 	form_class = ImageBlogForm
 
 	def get_object(self):
 		return ImageBlog.objects.get(pk = self.kwargs['pk'])
 
 	def get_success_url(self):
-		return reverse('imageblog_detail', kwargs = {'pk':self.object.pk})
+		return reverse('blog/imageblog_detail', kwargs = {'pk':self.object.pk})
 
 class ImageBlogDeleteView(LoginRequiredMixin, DeleteView):
-	template_name = 'blog/blog_delete.html'
+	template_name = 'blog/imageblog_delete.html'
 
 	def get_object(self):
 		return ImageBlog.objects.get(pk = self.kwargs['pk'])
