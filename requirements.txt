@@ -1,0 +1,15 @@
+Django==1.5.1
+Markdown==2.3.1
+PIL==1.1.7
+PyYAML==3.10
+South==0.8.1
+defusedxml==0.4.1
+django-filter==0.6
+django-oauth-plus==2.1.2
+django-oauth2-provider==0.2.6
+djangorestframework==2.3.6
+httplib2==0.8
+oauth2==1.5.211
+shortuuid==0.3
+virtualenv==1.9.1
+wsgiref==0.1.2
